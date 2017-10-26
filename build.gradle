@@ -1,0 +1,52 @@
+buildscript {
+	ext {
+		kotlinVersion = '1.1.51'
+		springBootVersion = '1.5.8.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+	}
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'pl.artcoder.playground'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+compileKotlin {
+	kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+	kotlinOptions.jvmTarget = "1.8"
+}
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+
+	compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
+	compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+
+	compile ("org.codehaus.groovy:groovy-all:2.4.10")
+
+	testCompile ("org.spockframework:spock-core:1.1-groovy-2.4")
+	// optional dependencies for using Spock
+  testCompile ("org.hamcrest:hamcrest-core:1.3") // only necessary if Hamcrest matchers are used
+  testRuntime ("net.bytebuddy:byte-buddy:1.6.5")          // allows mocking of classes (in addition to interfaces)
+  testRuntime ("org.objenesis:objenesis:2.5.1")    // allows mocking of classes without default constructor (together with CGLIB)
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
